@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  description: This API provides event stats
+  version: "1.0.0"
+  title: Stats API
+servers:
+  - url: http://localhost:8100
+
+paths:
+  /stats:
+    get:
+      summary: Gets the event stats
+      operationId: app.get_stats
+      description: Gets statistics
+      responses:
+        '200':
+          description: Successfully returned a list events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReadingStats'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                 message:
+                  type: string
+  /health:
+    get:
+      tags:
+        - devices
+      summary: gets the new purchase item
+      operationId: app.get_health_check
+      description: check the status of the site
+      responses:
+        "200":
+          description: Successfully returned a search events
+                    
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    ReadingStats:
+      required:
+        - num_buy_readings
+        - max_buy_readings
+        - min_buy_readings
+        - num_price_readings
+        - max_price_readings
+        - min_price_readings
+      type: object
+      properties:
+        num_buy_readings:
+          type: integer
+          example: 500000
+        max_buy_readings:
+          type: integer
+          example: 200
+        min_buy_readings:
+          type: integer
+          example: 180
+        num_search_readings:
+          type: integer
+          example: 500000
+        max_search_readings:
+          type: integer
+          example: 250
+          type: object
+        min_search_readings:
+          type: integer
+          example: 2
+          type: object
